@@ -1,47 +1,44 @@
-name: "Estrutura de Diretórios e Arquivos 02"
+name: Hello GitHub Actions
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
-env:
-  NODE_VERSION: '18'
-
 jobs:
-  demonstrando-estrutura:
-    name: "Demonstrar Estrutura Básica"
+  hello-job:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do Código
         uses: actions/checkout@v4
 
-      - name: Mostrar estrutura .github/workflows
-        run: |
-          echo " == ESTRUTURA DE DIRETORIOS E ARQUIVOS .github/workflows == "
-          ls -la .github/workflows
-          echo ""
-          echo " Total de workflows: $(ls -1 .github/workflows/*.y*ml 2>/dev/null | wc -l) "
+      - name: Executar Hello World
+        run: echo " Hello Github Actions "
 
-      - name: Elementos obrigatórios do workflow
+      - name: Mostrar informações do Sistema
         run: |
-          echo " == ELEMENTOS OBRIGATÓRIOS DO WORKFLOW == "
-          echo " 1. name: Nome do workflow"
-          echo " 2. on: Eventos que acionam o workflow"
-          echo " 3. env: Variáveis de ambiente"
-          echo " 4. jobs: Definição dos trabalhos a serem executados "
-          echo " 5. runs-on: Ambiente onde o job será executado "
-          echo " 6. steps: Passos individuais dentro de um job "
-          echo ""
-          echo " Total de elmentos obrigatórios: 6 "
-          
-      - name: Variáveis e Contexto
+          echo " == INFORMAÇÕES DO SISTEMA == "
+          echo " 1. Sistema Operacional: ${{ runner.os }}"
+          echo " 2. Arquitetura: ${{ runner.arch }}"
+          echo " 3. Diretório Atual: $(pwd) "
+          echo " 4. Data e Hora: $(date) "
+          echo " 5. Usuário: $(whoami) "
+          echo " 6. Versão do Node.js: ${{ runner.node.version }}"
+          echo " 7. Versão do npm: ${{ runner.npm.version }}"
+          echo " 8. Versão do yarn: ${{ runner.yarn.version }}"
+          echo " 9. Versão do pnpm: ${{ runner.pnpm.version }}"
+          echo " 10. Versão do bun: ${{ runner.bun.version }}"
+          echo " 11. Versão do deno: ${{ runner.deno.version }}"
+
+      - name: Listar arquivos do repositório
+        run: ls -la
+
+      - name: Comandos múltiplos
         run: |
-          echo " == VARIÁVEIS E CONTEXTO == "
-          echo " 1. Variáveis de ambiente: Variáveis que podem ser usadas em todo o workflow: ${{ env.NODE_VERSION }}"
-          echo " 2. Contextos: Contextos que podem ser usados em todo o workflow: job, runner, etc. "
-          echo " 3. Secrets: Secrets que podem ser usados em todo o workflow "
-          echo " 4. Environments: Environments que podem ser usados em todo o workflow "
-          echo ""
-          echo " Total de elmentos obrigatórios: 4 "
+          echo " == COMANDOS MÚLTIPLOS == "
+          echo "Este é o lab02 do curso de Github Actions"
+          echo "Workflow executado com sucesso"
+          echo "Pronto para os próximos desafios!"
